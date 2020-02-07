@@ -78,7 +78,7 @@
     - `SecureCRTPortable.exe`用于远程连接写命令
     - `SecureFXPortable.exe`用于远程连接传输文件
 + 上传jdk压缩包
-    - 通过`SecureCRTPortable.exe`将jdk上传到Linux系统的`/root`下
+    - 通过`SecureFXPortable.exe`将jdk上传到Linux系统的`/root`下
     - 新建`apps`文件夹，将jdk解压到其中,然后删除压缩包节约空间
       ```shell
       $ mkdir apps
