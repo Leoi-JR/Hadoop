@@ -130,12 +130,7 @@
     </property>
 
     ```
-  - 将修改后的文件拷贝到其他虚拟机上
-    ```shell
-    $ scp -r /root/apps/  slave1:/root/
-    $ scp -r /root/apps/  slave2:/root/
-    ```
-  - 修改`workers`文件，将内容替换成如下内容
+  - 修改主机master里面的`slaves`文件，将内容替换成如下内容
     ```
     master
     slave1
