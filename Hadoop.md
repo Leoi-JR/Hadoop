@@ -6,6 +6,7 @@
 - [配置克隆机](#配置克隆机)
 - [配置Hadoop环境](#配置hadoop环境)
 - [启动HDFS](#启动hdfs)
+- [免密登录设置](#免密登录设置)
 
 <!-- /TOC -->
 # VMware下载、ISO镜像文件下载
@@ -132,10 +133,17 @@
     ```
   - 将修改后的文件拷贝到其他虚拟机上
     ```shell
-    $ scp -r /root/apps/  slave1:/root/
+    $ scp -r /root/apps/  slave1:/root/ # 没有指定用户，默认为root
     $ scp -r /root/apps/  slave2:/root/
     ```
-  - 修改`workers`文件，将内容替换成如下内容
+    ```shell
+    $ # 指定用户
+    $ scp -r /root/apps/  username@slave1:/root/ # 指定用户username    
+    $ scp -r /root/apps/  username@slave1:`pwd`     
+    $ scp -r /root/apps/  username@slave1:$PWD # `pwd`或$PWD表示到当前路径    
+    $ scp -r /root/apps/  username@slave1:~ # ~表示到宿主目录    
+    ```
+  - 修改`slaves`文件，将内容替换成如下内容
     ```
     master
     slave1
@@ -163,7 +171,7 @@
   ```shell
   $ hadoop-daemon.sh start namenode
   ```
-+ 启动众datanode
++ 启动datanode
   ```shell
   $ hadoop-daemon.sh start datanode
   ```
@@ -175,3 +183,15 @@
   ```shell
   $ stop-dfs.sh
   ```
+# 免密登录设置  
++ 在第一台机器上生成一对钥匙，分别是公钥和私钥
+    ```shell
+    $ ssh-keygen -t rsa # 回车后再输入三次回车
+    $ # 而后会在宿主目录的.ssh内生成两个文件id_rsa和id_rsa.pub
+    ```
++ 将公钥拷贝到要免密登录的机器上
+    ```shell
+    $ ssh-copy-id root@slave1
+    $ # 拷贝完成后会在免密登录的机器上生成授权密码文件，在/root/.ssh/authorized_keys中
+    ```
++ 免密登录是单向的
