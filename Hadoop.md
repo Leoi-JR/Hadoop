@@ -6,6 +6,7 @@
 - [配置克隆机](#配置克隆机)
 - [配置Hadoop环境](#配置hadoop环境)
 - [启动HDFS](#启动hdfs)
+- [设置免密登录](#设置免密登录)
 
 <!-- /TOC -->
 # VMware下载、ISO镜像文件下载
@@ -169,4 +170,11 @@
 + 停止整个集群
   ```shell
   $ stop-dfs.sh
+  ```
+# 设置免密登录
++ ```shell
+  $ ssh-keygen -t rsa
+  $ ssh-copy-id master
+  $ ssh-copy-id slave1
+  $ ssh-copy-id slave2
   ```
